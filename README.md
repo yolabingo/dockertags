@@ -17,8 +17,8 @@ pip install dockertags/dist/dockertags-0.1.0-py3-none-any.whl
 ```
 
 #### Sample command
+`dockertags bitnami python --exclude-substrings debian --min_version 3.9 --max_version 3.10`
 ```
-dockertags bitnami python --exclude-substrings debian --min_version 3.9 --max_version 3.10
 3.9-prod
 3.9
 3.9.1-prod
@@ -28,6 +28,8 @@ dockertags bitnami python --exclude-substrings debian --min_version 3.9 --max_ve
 ...
 ```
 #### Usage
+Note - by default ``--max_results` is a relatively modest 2k. Docker Hub API appears to have conservative rate limits.
+
 ```
 usage: dockertags [-h] [--exclude-substrings EXCLUDE_SUBSTRINGS [EXCLUDE_SUBSTRINGS ...]] [--include-substrings INCLUDE_SUBSTRINGS [INCLUDE_SUBSTRINGS ...]]
                   [--min_version MIN_VERSION] [--max_version MAX_VERSION] [--max_results MAX_RESULTS]
@@ -50,5 +52,5 @@ options:
   --max_version MAX_VERSION, -w MAX_VERSION
                         Maximum included version number
   --max_results MAX_RESULTS, -m MAX_RESULTS
-                        Maximum number of results to pull, default=5000
+                        Maximum number of results to pull, default=2000
 ```

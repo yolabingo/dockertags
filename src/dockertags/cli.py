@@ -11,15 +11,13 @@ from datetime import datetime
 
 import requests
 
-## suppress "PkgResourcesDeprecationWarning: XXX is an invalid version and will not be supported in a future release"
-warnings.filterwarnings(PkgResourcesDeprecationWarning)
 
 class DockerhubTags:
     """
     provide sorting/comparison based on a tag's name and `last_updated` values
     """
 
-    def __init__(self, name, last_updated):
+    def __init__(self, name, last_updated="2000-01-01T00:00:00"):
         """
         self.version strips everything after [_-] as it is ignored by pkg_resources.parse_version
         """
@@ -28,7 +26,10 @@ class DockerhubTags:
         if name == "latest":
             self.version = pkg_resources.parse_version(big_version)
         else:
-            self.version = pkg_resources.parse_version(name.split("_")[0].split("-")[0])
+            ## suppress "PkgResourcesDeprecationWarning: XXX is an invalid version and will not be supported in a future release"
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                self.version = pkg_resources.parse_version(name.split("_")[0].split("-")[0])
         # Dockerhub API format: "last_updated": "2022-10-17T23:19:38.986447Z"
         isoformat = last_updated.split(".")[0]
         self.last_updated = datetime.fromisoformat(isoformat)
@@ -68,7 +69,7 @@ class GetDockerhubTags:
         self,
         namespace,
         repository,
-        max_results=2000,
+        max_results=None,
         exclude_substrings=None,
         include_substrings=None,
         min_version=None,
@@ -79,34 +80,22 @@ class GetDockerhubTags:
         set page_limit as large repos are... large
         """
         self.tags = []
-        self.page_size = 100
         self.repository = repository
         self.namespace = namespace
         self.exclude_substrings = exclude_substrings
         self.include_substrings = include_substrings
+        self.page_size = 100 # dockerhub api max
+        if max_results is None:
+            max_results = 2000
         self.page_limit = int((max_results - 1) / self.page_size)
         if min_version is None:
             self.min_version = None
         else:
-            self.min_version = DockerhubTags(min_version, "2000-01-01T00:00:00")
+            self.min_version = DockerhubTags(min_version)
         if max_version is None:
             self.max_version = None
         else:
-            self.max_version = DockerhubTags(max_version, "2000-01-01T00:00:00")
-
-    def _get_url(self, page=1):
-        return f"https://hub.docker.com/v2/namespaces/{self.namespace}/repositories/{self.repository}/tags?page={page}&page_size={self.page_size}"
-
-    def _exclude_tag(self, tag):
-        """
-        exclude tags containing provided substrings
-        returns True if provided tag should be excluded
-        """
-        if self.exclude_substrings:
-            for exclude in self.exclude_substrings:
-                if exclude in tag:
-                    return True
-        return False
+            self.max_version = DockerhubTags(max_version)
 
     def _get_url(self, page=1):
         return f"https://hub.docker.com/v2/namespaces/{self.namespace}/repositories/{self.repository}/tags?page={page}&page_size={self.page_size}"
@@ -235,8 +224,8 @@ def cli():
         "--max_results",
         "-m",
         type=int,
-        default=5000,
-        help="Maximum number of results to pull, default=5000",
+        default=None,
+        help="Maximum number of results to pull, default=2000",
     )
     args = parser.parse_args()
 
