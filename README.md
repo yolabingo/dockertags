@@ -25,9 +25,7 @@ dockertags bitnami python --exclude-substrings debian --min_version 3.9 --max_ve
 3.9.1
 3.9.2
 3.9.2-prod
-3.9.3
-3.9.3-prod
-3.9.4...
+...
 ```
 #### Usage
 ```
