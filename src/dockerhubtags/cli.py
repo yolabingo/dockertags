@@ -1,16 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Usage:
-python3 dockerhub.py
-or
-./dockerhub.py
-
-Prints dotcms Docker Hub images, sorted by 
-1) version number
-2) tag 'last_update' time
-
-requires python "requests" library
+Get image Tags from Docker Hub
 """
 import argparse
 import json
@@ -30,7 +21,7 @@ class DockerhubTags:
         
         self.version strips everything after "_", hopefully compares only "21.06.4"
         """
-        big_version = "999999999999.9999"
+        big_version = "999999999999"
         self.name = name
         if name == "latest":
             self.version = pkg_resources.parse_version(big_version)
