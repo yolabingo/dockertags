@@ -6,10 +6,13 @@ Get image Tags from Docker Hub
 import argparse
 import json
 import pkg_resources
+import warnings
 from datetime import datetime
 
 import requests
 
+## suppress "PkgResourcesDeprecationWarning: XXX is an invalid version and will not be supported in a future release"
+warnings.filterwarnings(PkgResourcesDeprecationWarning)
 
 class DockerhubTags:
     """
