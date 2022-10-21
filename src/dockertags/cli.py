@@ -18,8 +18,7 @@ class DockerhubTags:
 
     def __init__(self, name, last_updated):
         """
-        
-        self.version strips everything after "_", hopefully compares only "21.06.4"
+        self.version strips everything after [_-] as it is ignored by pkg_resources.parse_version
         """
         big_version = "999999999999"
         self.name = name
@@ -66,7 +65,7 @@ class GetDockerhubTags:
         self,
         namespace,
         repository,
-        max_results=5000,
+        max_results=2000,
         exclude_substrings=None,
         include_substrings=None,
         min_version=None,
