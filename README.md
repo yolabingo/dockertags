@@ -14,7 +14,7 @@ cd dockertags
 git clone https://github.com/yolabingo/dockertags 
 pip install dockertags/dist/dockertags-0.1.0-py3-none-any.whl
 ```
-else 
+else:
 
 run `src/dockertags/cli.py` directly, requires only [python requests library](https://requests.readthedocs.io/en/latest/)
 
