@@ -1,10 +1,10 @@
-## dockerhub-tags
+## dockertags
 
 #### Install
 [Pipx](https://pypa.github.io/pipx/) recommended:
 ```
-git clone https://github.com/yolabingo/dockerhub-tags 
-pipx install dockerhub-tags/dist/dockerhubtags-0.1.0-py3-none-any.whl
+git clone https://github.com/yolabingo/dockertags 
+pipx install dockertags/dist/dockerhubtags-0.1.0-py3-none-any.whl
 ```
 
 else install in a Python virtualenv:
@@ -12,8 +12,8 @@ else install in a Python virtualenv:
 python3 -m venv dockerhubtags
 cd dockerhubtags 
 . bin/activate
-git clone https://github.com/yolabingo/dockerhub-tags 
-pip install dockerhub-tags/dist/dockerhubtags-0.1.0-py3-none-any.whl
+git clone https://github.com/yolabingo/dockertags 
+pip install dockertags/dist/dockerhubtags-0.1.0-py3-none-any.whl
 ```
 
 #### Sample command
