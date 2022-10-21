@@ -14,7 +14,7 @@ cd dockertags
 git clone https://github.com/yolabingo/dockertags 
 pip install dockertags/dist/dockertags-0.1.0-py3-none-any.whl
 ```
-else, run `src/dockertags/cli.py` directly, requires only https://requests.readthedocs.io/en/latest/
+else, run `src/dockertags/cli.py` directly, requires only [python requests library](https://requests.readthedocs.io/en/latest/)
 
 
 #### Sample command
@@ -29,7 +29,7 @@ else, run `src/dockertags/cli.py` directly, requires only https://requests.readt
 ...
 ```
 #### Usage
-Note - by default ``--max_results` is a relatively modest 2k. Docker Hub API appears to have conservative rate limits.
+Note - by default ``--max_results` is a relatively modest 2k as Docker Hub API appears to have conservative rate limits.
 
 ```
 usage: dockertags [-h] [--exclude-substrings EXCLUDE_SUBSTRINGS [EXCLUDE_SUBSTRINGS ...]] [--include-substrings INCLUDE_SUBSTRINGS [INCLUDE_SUBSTRINGS ...]]
