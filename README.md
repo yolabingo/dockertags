@@ -14,8 +14,9 @@ cd dockertags
 git clone https://github.com/yolabingo/dockertags 
 pip install dockertags/dist/dockertags-0.1.0-py3-none-any.whl
 ```
-else, run `src/dockertags/cli.py` directly, requires only [python requests library](https://requests.readthedocs.io/en/latest/)
+else 
 
+run `src/dockertags/cli.py` directly, requires only [python requests library](https://requests.readthedocs.io/en/latest/)
 
 #### Sample command
 `dockertags bitnami python --exclude-substrings debian --min_version 3.9 --max_version 3.10`
