@@ -2,13 +2,15 @@
 # -*- coding: utf-8 -*-
 """
 Get image Tags from Docker Hub
+
+this file is copied from https://github.com/yolabingo/dockertags/blob/main/src/dockertags/cli.py
 """
 import argparse
 import json
-import pkg_resources
 import warnings
 from datetime import datetime
 
+import pkg_resources
 import requests
 
 
@@ -17,7 +19,7 @@ class DockerhubTags:
     provide sorting/comparison based on a tag's name and `last_updated` values
     """
 
-    def __init__(self, name, last_updated="2000-01-01T00:00:00"):
+    def __init__(self, name, last_updated=None):
         """
         self.version strips everything after [_-] as it is ignored by pkg_resources.parse_version
         """
@@ -29,9 +31,14 @@ class DockerhubTags:
             ## suppress "PkgResourcesDeprecationWarning: XXX is an invalid version and will not be supported in a future release"
             with warnings.catch_warnings():
                 warnings.simplefilter("ignore")
-                self.version = pkg_resources.parse_version(name.split("_")[0].split("-")[0])
+                self.version = pkg_resources.parse_version(
+                    name.split("_")[0].split("-")[0]
+                )
         # Dockerhub API format: "last_updated": "2022-10-17T23:19:38.986447Z"
-        isoformat = last_updated.split(".")[0]
+        try:
+            isoformat = last_updated.split(".")[0]
+        except AttributeError:
+            isoformat = "2000-01-01T00:00:00"
         self.last_updated = datetime.fromisoformat(isoformat)
 
     def _versions_eq(self, other):
@@ -84,7 +91,7 @@ class GetDockerhubTags:
         self.namespace = namespace
         self.exclude_substrings = exclude_substrings
         self.include_substrings = include_substrings
-        self.page_size = 100 # dockerhub api max
+        self.page_size = 100  # dockerhub api max
         if max_results is None:
             max_results = 2000
         self.page_limit = int((max_results - 1) / self.page_size)
@@ -138,7 +145,7 @@ class GetDockerhubTags:
 
     def _save_tag(self, name, last_updated):
         if self._exclude_tag(name):
-            return None 
+            return None
         if not self._include_tag(name):
             return None
         tag = DockerhubTags(name, last_updated)
