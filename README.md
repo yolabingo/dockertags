@@ -19,7 +19,7 @@ else:
 run `src/dockertags/cli.py` directly, requires only [python requests library](https://requests.readthedocs.io/en/latest/)
 
 #### Sample command
-Note: use `namespace=library` for "Official" repos like Use namespace=library for "Official" images like [redis](https://hub.docker.com/_/redis)
+Note: use `namespace=library` for "Official" repos like [redis](https://hub.docker.com/_/redis)
 
 `dockertags bitnami python --exclude-substrings debian --min_version 3.9 --max_version 3.10`
 ```
