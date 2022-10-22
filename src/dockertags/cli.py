@@ -214,21 +214,21 @@ def cli():
         help="Tags containing these substrings will be included, e.g. 'lts debian'",
     )
     parser.add_argument(
-        "--min_version",
+        "--min-version",
         "-v",
         type=str,
         default=None,
         help="Minimum included version number",
     )
     parser.add_argument(
-        "--max_version",
+        "--max-version",
         "-w",
         type=str,
         default=None,
         help="Maximum included version number",
     )
     parser.add_argument(
-        "--max_results",
+        "--max-results",
         "-m",
         type=int,
         default=None,
