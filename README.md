@@ -5,6 +5,7 @@
 ```
 git clone https://github.com/yolabingo/dockertags 
 pipx install dockertags/dist/dockertags-0.1.0-py3-none-any.whl
+dockertags --help
 ```
 else install in a Python virtualenv:
 ```
@@ -13,6 +14,7 @@ cd dockertags
 . bin/activate
 git clone https://github.com/yolabingo/dockertags 
 pip install dockertags/dist/dockertags-0.1.0-py3-none-any.whl
+dockertags --help
 ```
 else:
 
