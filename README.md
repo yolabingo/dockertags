@@ -3,8 +3,7 @@
 #### Install
 [Pipx](https://pypa.github.io/pipx/) recommended:
 ```
-git clone https://github.com/yolabingo/dockertags 
-pipx install dockertags/dist/dockertags-0.1.0-py3-none-any.whl
+pipx install https://github.com/yolabingo/dockertags/raw/main/dist/dockertags-0.1.0-py3-none-any.whl
 dockertags --help
 ```
 else, install in a Python virtualenv:
@@ -12,8 +11,7 @@ else, install in a Python virtualenv:
 python3 -m venv dockertags
 cd dockertags 
 . bin/activate
-git clone https://github.com/yolabingo/dockertags 
-pip install dockertags/dist/dockertags-0.1.0-py3-none-any.whl
+pip install https://github.com/yolabingo/dockertags/raw/main/dist/dockertags-0.1.0-py3-none-any.whl
 dockertags --help
 ```
 else, run `src/dockertags/cli.py` directly, requires only [python requests library](https://requests.readthedocs.io/en/latest/)
