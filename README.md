@@ -39,8 +39,9 @@ latest
 Note - by default ``--max-results` is a relatively modest 2k as Docker Hub API appears to have conservative rate limits.
 
 ```
-usage: dockertags namespace repository [-h] [--exclude-substrings EXCLUDE_SUBSTRINGS [EXCLUDE_SUBSTRINGS ...]] [--include-substrings INCLUDE_SUBSTRINGS [INCLUDE_SUBSTRINGS ...]] [--min-version MIN_VERSION] [--max-version MAX_VERSION]
-                    [--max-results MAX_RESULTS]
+usage: dockertags namespace repository [-h] [--exclude-substrings EXCLUDE_SUBSTRINGS [EXCLUDE_SUBSTRINGS ...]] \ 
+                  [--include-substrings INCLUDE_SUBSTRINGS [INCLUDE_SUBSTRINGS ...]] \
+                  [--min-version MIN_VERSION] [--max-version MAX_VERSION] [--max-results MAX_RESULTS]
                     
 
 Gets Tags for a Docker Hub repository
