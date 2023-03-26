@@ -1,7 +1,7 @@
 ## dockertags
 
 #### Install
-[Pipx](https://pypa.github.io/pipx/) recommended:
+[Pipx](https://pypa.github.io/pipx/) is handy:
 ```
 pipx install https://github.com/yolabingo/dockertags/raw/main/dist/dockertags-0.1.0-py3-none-any.whl
 dockertags --help
