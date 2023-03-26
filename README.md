@@ -36,7 +36,7 @@ latest
 ...
 ```
 #### Usage
-Note - by default ``--max-results` is a relatively modest 2k as Docker Hub API appears to have conservative rate limits.
+Note - by default `--max-results` is a relatively modest 2k as Docker Hub API appears to have conservative rate limits.
 
 ```
 usage: dockertags namespace repository [-h] [--exclude-substrings EXCLUDE_SUBSTRINGS [EXCLUDE_SUBSTRINGS ...]] \ 
