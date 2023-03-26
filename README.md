@@ -8,6 +8,7 @@ dockertags --help
 ```
 else, install in a Python virtualenv:
 ```
+# create virtualenv
 python3 -m venv dockertags
 cd dockertags 
 . bin/activate
