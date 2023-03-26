@@ -17,6 +17,10 @@ import requests
 class DockerhubTags:
     """
     provide sorting/comparison based on a tag's name and `last_updated` values
+    basically a struct:
+    self.name
+    self.version
+    self.
     """
 
     def __init__(self, name, last_updated=None):
@@ -28,12 +32,19 @@ class DockerhubTags:
         if name == "latest":
             self.version = pkg_resources.parse_version(big_version)
         else:
+            if name.endswith("lts"):
+                name = name[:3]
+            if name.endswith("cicd"):
+                name = name[:4]
+            name = name.split("_")[0].split("-")[0]
             ## suppress "PkgResourcesDeprecationWarning: XXX is an invalid version and will not be supported in a future release"
             with warnings.catch_warnings():
                 warnings.simplefilter("ignore")
-                self.version = pkg_resources.parse_version(
-                    name.split("_")[0].split("-")[0]
-                )
+                try:
+                    self.version = pkg_resources.parse_version(name)
+                # give up on names that don't conform
+                except pkg_resources.extern.packaging.version.InvalidVersion as e:
+                    self.name = None
         # Dockerhub API format: "last_updated": "2022-10-17T23:19:38.986447Z"
         try:
             isoformat = last_updated.split(".")[0]
@@ -149,6 +160,8 @@ class GetDockerhubTags:
         if not self._include_tag(name):
             return None
         tag = DockerhubTags(name, last_updated)
+        if tag.name is None:
+            return None
         if (self.min_version is not None) and (tag < self.min_version):
             return None
         if (self.max_version is not None) and (tag > self.max_version):
@@ -162,25 +175,23 @@ class GetDockerhubTags:
         Returns next page URL of paginated results, if exists
         """
         next_page_url = None
-        tags = set()
         response = requests.get(url)
         if response.status_code == 200:
             response_body = json.loads(response.text)
-            next_page_url = response_body["next"]
             for result in response_body["results"]:
                 self._save_tag(result["name"], result["last_updated"])
+            next_page_url = response_body["next"]
+            if next_page_url:
+                next_page_url = self._under_page_limit(next_page_url)
         else:
-            print(url)
             print(f"Code: {response.status_code}")
         return next_page_url
 
     def get_tags(self):
         next_page = self._get_url()
         # starting a page 1, loop through paginated results
-        while next_page:
-            next_page = self._get_page(next_page)
-            if next_page:
-                next_page = self._under_page_limit(next_page)
+        while next_page := self._get_page(next_page):
+            pass
         self.tags.sort()
         return self.tags
 
