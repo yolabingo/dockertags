@@ -18,7 +18,7 @@ dockertags --help
 else, run `src/dockertags/cli.py` directly, requires only [python requests library](https://requests.readthedocs.io/en/latest/)
 
 #### Sample commands
-Note: use namespace `library` for Official repos like [redis](https://hub.docker.com/_/redis)
+Note: use namespace `library` for Official repos like  php, [redis](https://hub.docker.com/_/redis), etc
 
 `dockertags library redis --exclude-substrings alpine rc --min-version 7.0.4`
 ```
