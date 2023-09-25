@@ -174,6 +174,8 @@ class GetDockerhubTags:
         Adds found tags to self.tags list
         Returns next page URL of paginated results, if exists
         """
+        if not url:
+            return None
         next_page_url = None
         response = requests.get(url)
         if response.status_code == 200:
